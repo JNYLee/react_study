@@ -3,31 +3,34 @@
 <head>
     <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
     <title>Document</title>
 </head>
 
 <body>
     <div id="root"></div>
-    <script>
-        const e = React.createElement;
-
+    <script type="text/babel">
         class LikeButton extends React.Component {
             constructor(props) {
                 super(props);
                 this.state = {
-                    liked: false
+                    liked: false,
                 };
             }
 
             render() {
-                return e('button', { onClick: () => { this.setState({ liked: true }) }, type: "submit" },
-                    this.state.liked === true ? 'Liked' : 'Like',
-                ); // <button>Like</button> 태그를 만들"겠"다
+                return <button type="submit" onClick={() => { this.setState({ liked: true }) }}>
+                    {this.state.liked ? 'Liked' : 'Like'}
+                </button>;
+                // >>이렇게 짜면 코드가 더러워진다. return e('button', { onClick: () => { this.setState({ liked: true }) }, type: "submit" },
+                //     this.state.liked === true ? 'Liked' : 'Like',
+                // ); // <button>Like</button> 태그를 만들"겠"다
             }
         }
     </script>
-    <script>
-        ReactDOM.render(e(LikeButton), document.querySelector('#root')); // 위에서 말한 버튼을 만든다. 
+    <script type="text/babel">
+        ReactDOM.render(<div><LikeButton /><LikeButton /><LikeButton /><LikeButton /><LikeButton /></div>, document.querySelector('#root'));
+        //ReactDOM.render(e(LikeButton), document.querySelector('#root')); // 위에서 말한 버튼을 만든다.
     </script>
 </body>
 
