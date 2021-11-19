@@ -1,57 +1,44 @@
-const path = require("path");
-//const webpack = require("webpack");
-const RefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const path = require('path');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 module.exports = {
-  name: "wordRelayGame-setting",
-  mode: "development",
-  devtool: "eval",
+  name: 'word-relay-dev',
+  mode: 'development',
+  devtool: 'inline-source-map',
   resolve: {
-    extensions: [".js", ".jsx"],
+    extensions: ['.js', '.jsx'],
   },
   entry: {
-    app: ["./client"],
-  }, // 입력
-
+    app: './client',
+  },
   module: {
-    rules: [
-      {
-        test: /\.jsx?$/,
-        loader: "babel-loader",
-        options: {
-          presets: [
-            [
-              "@babel/preset-env",
-              {
-                targets: {
-                  browsers: ["> 5% in KR", "last 2 chrome versions"],
-                },
-                debug: true,
-              },
-            ],
-            "@babel/preset-react",
-          ],
-          plugins: [
-            "@babel/plugin-proposal-class-properties",
-            'react-refresh/babel',
-          ],
-        },
+    rules: [{
+      test: /\.jsx?$/,
+      loader: 'babel-loader',
+      options: {
+        presets: [
+          ['@babel/preset-env', {
+            targets: {browsers: ['last 2 chrome versions']},
+            debug: true,
+          }],
+          '@babel/preset-react',
+        ],
+        plugins: ['react-refresh/babel'],
       },
-    ],
+      exclude: path.join(__dirname, 'node_modules'),
+    }],
   },
   plugins: [
-//    new webpack.LoaderOptionsPlugin({ debug: true }),
-    new RefreshWebpackPlugin()
+    new ReactRefreshWebpackPlugin(),
   ],
-
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: "app.js",
-    publicPath: '/dist/',
+    filename: '[name].js',
+    publicPath: '/dist',
   },
   devServer: {
-    devMiddleware: { public: '/dist/'},
-    static: {directory: path.resolve(__dirname)},
-    hot: true,
-  },
+    devMiddleware: { publicPath: '/dist/' },
+    static: { directory: path.resolve(__dirname) },
+    hot: true
+  }
 };
