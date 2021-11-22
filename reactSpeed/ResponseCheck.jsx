@@ -40,7 +40,11 @@ class ResponseCheck extends Component {
       });
     }
   };
-
+  onReset = () => {
+    this.setState({
+      result: [],
+    });
+  };
   renderAverage = () => {
     const { result } = this.state;
     return result.length === 0 ? null : (
@@ -60,6 +64,7 @@ class ResponseCheck extends Component {
           {message}
         </div>
         <div>{this.renderAverage()}</div>
+        <button onClick={this.onReset}>리셋</button>
       </>
     );
   }
