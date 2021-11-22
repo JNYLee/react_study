@@ -1,10 +1,9 @@
 const path = require("path");
-//const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
-process.env.NODE_ENV = "production";
+const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 
 module.exports = {
   name: "number-baseball-dev",
-  mode: "production",
+  mode: "development",
   devtool: "inline-source-map",
   resolve: {
     extensions: [".js", ".jsx"],
@@ -28,13 +27,13 @@ module.exports = {
             ],
             "@babel/preset-react",
           ],
-          // plugins: ["react-refresh/babel"],
+          plugins: ["react-refresh/babel"],
         },
         exclude: path.join(__dirname, "node_modules"),
       },
     ],
   },
-  plugins: [],
+  plugins: [new ReactRefreshWebpackPlugin()],
   output: {
     path: path.join(__dirname, "dist"),
     filename: "[name].js",

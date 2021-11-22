@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack serve --env development",
-    "build": "webpack --config webpack.config.jsx"
+    "dev": "webpack serve --env development"
   },
   "author": "JNYLee",
   "license": "MIT",
