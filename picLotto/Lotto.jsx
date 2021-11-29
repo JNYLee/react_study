@@ -19,7 +19,7 @@ function getWinNumbers() {
 class Lotto extends Component {
   state = {
     winNumbers: getWinNumbers(),
-    winBalls: [],
+    winBalls: [null],
     bonus: null,
     redo: false,
   };
