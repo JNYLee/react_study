@@ -16,15 +16,19 @@ function getWinNumbers() {
   const winNumbers = shuffle.slice(0, 6).sort((p, c) => p - c);
   return [...winNumbers, bonusNumber];
 }
+
 class Lotto extends Component {
   state = {
-    winNumbers: getWinNumbers(),
-    winBalls: [null],
-    bonus: null,
+    winNumbers: getWinNumbers(), // 당첨 숫자들
+    winBalls: [],
+    bonus: null, // 보너스 공
     redo: false,
   };
+
   timeouts = [];
+
   runTimeouts = () => {
+    console.log("runTimeouts");
     const { winNumbers } = this.state;
     for (let i = 0; i < winNumbers.length - 1; i++) {
       this.timeouts[i] = setTimeout(() => {
@@ -42,8 +46,21 @@ class Lotto extends Component {
       });
     }, 7000);
   };
+
   componentDidMount() {
+    console.log("didMount");
     this.runTimeouts();
+    console.log("로또 숫자를 생성합니다.");
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log("didUpdate");
+    if (this.state.winBalls.length === 0) {
+      this.runTimeouts();
+    }
+    if (prevState.winNumbers !== this.state.winNumbers) {
+      console.log("로또 숫자를 생성합니다.");
+    }
   }
 
   componentWillUnmount() {
@@ -52,21 +69,15 @@ class Lotto extends Component {
     });
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (this.winBalls.length === 0) {
-      this.runTimeouts();
-    }
-  }
-
   onClickRedo = () => {
+    console.log("onClickRedo");
     this.setState({
-      winNumbers: getWinNumbers(),
+      winNumbers: getWinNumbers(), // 당첨 숫자들
       winBalls: [],
-      bonus: null,
+      bonus: null, // 보너스 공
       redo: false,
     });
     this.timeouts = [];
-    this.runTimeouts();
   };
 
   render() {

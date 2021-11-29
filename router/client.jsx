@@ -2,8 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import MainRouter from "./MainRouter";
-import Lotto from "../picLotto/Lotto";
-import ResponseCheck from "../reactSpeed/ResponseCheck_class";
 
 ReactDOM.render(
   <BrowserRouter>

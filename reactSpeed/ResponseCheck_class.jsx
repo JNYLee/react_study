@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 class ResponseCheck extends Component {
   state = {
-    state: "waiting",
+    commandText: "waiting",
     message: "클릭해서 시작하세요",
     result: [],
   };
@@ -10,45 +10,45 @@ class ResponseCheck extends Component {
   startTime;
   endTime;
 
-  onClickScreen() {
-    const { state } = this.state;
-    if (state === "waiting") {
+  onClickScreen = () => {
+    const { commandText } = this.state;
+    if (commandText === "waiting") {
       this.setState({
-        state: "ready",
+        commandText: "ready",
         message: "초록색이 되면 클릭하세요",
       });
       this.timeout = setTimeout(() => {
         this.setState({
-          state: "now",
+          commandText: "now",
           message: "지금 클릭",
         });
         this.startTime = new Date();
       }, Math.floor(Math.random() * 1000) + 2000);
-    } else if (state === "ready") {
+    } else if (commandText === "ready") {
       clearTimeout(this.timeout);
       this.setState({
-        state: "waiting",
+        commandText: "waiting",
         message: "너무 성급하시군요! 초록색이 된 후에 클릭하세요.",
       });
-    } else if (state === "now") {
+    } else if (commandText === "now") {
       this.endTime = new Date();
-      this.setState({
-        state: "waiting",
-        message: "클릭해서 시작하세요.",
-      });
       this.setState((prevResult) => {
-        return [...prevResult, this.endTime - this.startTime];
+        return {
+          commandText: "waiting",
+          message: "클릭해서 시작하세요.",
+          result: [...prevResult.result, this.endTime - this.startTime],
+        };
       });
     }
-  }
+  };
 
-  onReset() {
+  onReset = () => {
     this.setState({
       result: [],
     });
-  }
+  };
 
-  renderAverage() {
+  renderAverage = () => {
     const { result } = this.state;
     return result.length === 0 ? null : (
       <div>
@@ -57,16 +57,16 @@ class ResponseCheck extends Component {
         ms
       </div>
     );
-  }
+  };
   render() {
-    const { state, message } = this.state;
+    const { commandText, message } = this.state;
     return (
       <>
-        <div id="screen" className={state} onClick={onClickScreen}>
+        <div id="screen" className={commandText} onClick={this.onClickScreen}>
           {message}
         </div>
-        <div>{renderAverage()}</div>
-        <button onClick={onReset}>리셋</button>
+        <div>{this.renderAverage()}</div>
+        <button onClick={this.onReset}>리셋</button>
       </>
     );
   }
