@@ -12,14 +12,12 @@ import RouterBundle from "./routerBundle";
 const MainRouter = () => {
   return (
     <>
-      <nav>
-        <Link to="/game/path1">로또 추첨</Link>
-        <p></p>
-        <Link to="/game/path2">반응속도 체크</Link>
-      </nav>
       <div>
+        <nav>
+          <Link to="game/">게임 모음</Link>
+        </nav>
         <Routes>
-          <Route path="/game/:name" element={<RouterBundle />} />
+          <Route path="/game/*" element={<RouterBundle />} />
         </Routes>
       </div>
     </>

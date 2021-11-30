@@ -12,7 +12,17 @@ import React, { PureComponent, memo } from "react";
 //   }
 // }
 
-const Try = memo(({ tryInfo }) => {
+// const Try = memo(({ tryInfo }) => {
+//   return (
+//     <li>
+//       {console.log("rendering?")}
+//       <div>{tryInfo.try}</div>
+//       <div>{tryInfo.result}</div>
+//     </li>
+//   );
+// });
+
+function Try({ tryInfo }) {
   return (
     <li>
       {console.log("rendering?")}
@@ -20,6 +30,5 @@ const Try = memo(({ tryInfo }) => {
       <div>{tryInfo.result}</div>
     </li>
   );
-});
-
+}
 export default Try;
